@@ -1280,36 +1280,19 @@
 
         var previousDestTop = 0;
         /**
-        * Returns the destination Y position based on the scrolling direction and
-        * the height of the section.
+        * Returns the destination Y position.
+        * Position the element in the middle of the viewport if there's room,
+        * or at the top if there isn't.
         */
         function getDestinationPosition(dest, element){
+            var elementOffset = element.offset().top;
+            var elementHeight = element.height();
 
-            //top of the desination will be at the top of the viewport
-            var position = dest.top;
-            var isScrollingDown =  dest.top > previousDestTop;
-            var sectionBottom = position - windowsHeight + element.outerHeight();
-
-            //is the destination element bigger than the viewport?
-            if(element.outerHeight() > windowsHeight){
-                //scrolling up?
-                if(!isScrollingDown){
-                    position = sectionBottom;
-                }
+            var position = elementOffset;
+            if (elementHeight < windowsHeight) {
+              position = elementOffset - (windowsHeight / 2 - elementHeight / 2);
             }
 
-            //sections equal or smaller than the viewport height AND scrolling down?
-            else if(isScrollingDown){
-                //The bottom of the destination will be at the bottom of the viewport
-                position = sectionBottom;
-            }
-
-            /*
-            Keeping record of the last scrolled position to determine the scrolling direction.
-            No conventional methods can be used as the scroll bar might not be present
-            AND the section might not be active if it is auto-height and didnt reach the middle
-            of the viewport.
-            */
             previousDestTop = position;
             return position;
         }
