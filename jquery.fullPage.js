@@ -1,5 +1,5 @@
 /*!
- * fullPage 2.7.8
+ * fullPage 2.7.9 (Beta)
  * https://github.com/alvarotrigo/fullPage.js
  * @license MIT licensed
  *
@@ -164,7 +164,8 @@
             afterResize: null,
             afterReBuild: null,
             afterSlideLoad: null,
-            onSlideLeave: null
+            onSlideLeave: null,
+            getDestinationPosition: null
         }, options);
 
         displayWarnings();
@@ -1280,19 +1281,42 @@
 
         var previousDestTop = 0;
         /**
-        * Returns the destination Y position.
-        * Position the element in the middle of the viewport if there's room,
-        * or at the top if there isn't.
+        * Returns the destination Y position based on the scrolling direction and
+        * the height of the section.
         */
         function getDestinationPosition(dest, element){
-            var elementOffset = element.offset().top;
-            var elementHeight = element.height();
-
-            var position = elementOffset;
-            if (elementHeight < windowsHeight) {
-              position = elementOffset - (windowsHeight / 2 - elementHeight / 2);
+            // Use a user-defined handler if we have one.
+            if (options.getDestinationPosition) {
+                var position = options.getDestinationPosition(dest, element);
+                previousDestTop = position;
+                return position;
             }
 
+            //top of the desination will be at the top of the viewport
+            var position = dest.top;
+            var isScrollingDown =  dest.top > previousDestTop;
+            var sectionBottom = position - windowsHeight + element.outerHeight();
+
+            //is the destination element bigger than the viewport?
+            if(element.outerHeight() > windowsHeight){
+                //scrolling up?
+                if(!isScrollingDown){
+                    position = sectionBottom;
+                }
+            }
+
+            //sections equal or smaller than the viewport height AND scrolling down?
+            else if(isScrollingDown){
+                //The bottom of the destination will be at the bottom of the viewport
+                position = sectionBottom;
+            }
+
+            /*
+            Keeping record of the last scrolled position to determine the scrolling direction.
+            No conventional methods can be used as the scroll bar might not be present
+            AND the section might not be active if it is auto-height and didnt reach the middle
+            of the viewport.
+            */
             previousDestTop = position;
             return position;
         }
@@ -2672,7 +2696,7 @@
                 });
 
                 var idAttr = $document.find('[id]').filter(function() {
-                    return this.id && this.id.toLowerCase() == name.toLowerCase();
+                    return $(this).attr('id') && $(this).attr('id').toLowerCase() == name.toLowerCase();
                 });
 
                 if(idAttr.length || nameAttr.length ){
