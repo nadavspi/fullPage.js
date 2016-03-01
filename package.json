@@ -1,6 +1,6 @@
 {
   "name": "@nadavspi/fullpage.js",
-  "version": "2.7.9",
+  "version": "2.8.0",
   "description": "Fork of fullPage.js",
   "main": "jquery.fullPage.js",
   "scripts": {
