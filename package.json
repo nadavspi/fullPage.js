@@ -1,14 +1,14 @@
 {
-  "name": "fullpage.js",
+  "name": "@nadavspi/fullpage.js",
   "version": "2.7.8",
-  "description": "Create  beautiful fullscreen scrolling websites",
+  "description": "Fork of fullPage.js",
   "main": "jquery.fullPage.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:alvarotrigo/fullPage.js.git"
+    "url": "git@github.com:nadavspi/fullPage.js.git"
   },
   "keywords": [
     "jquery",
@@ -29,13 +29,14 @@
     "jquery": ">=1.6.0"
   },
   "authors": [
-    "Alvaro Trigo https://github.com/alvarotrigo"
+    "Alvaro Trigo https://github.com/alvarotrigo",
+    "Nadav Spiegelman"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alvarotrigo/fullPage.js/issues"
+    "url": "https://github.com/nadavspi/fullPage.js/issues"
   },
-  "homepage": "https://github.com/alvarotrigo/fullPage.js",
+  "homepage": "https://github.com/nadavspi/fullPage.js",
   "namespace": "$.fn.fullpage",
   "devDependencies": {
     "gulp": "^3.9.0",
