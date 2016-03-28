@@ -537,6 +537,13 @@
             $window.on('load', function() {
                 scrollToAnchor();
             });
+
+	    if ($.isFunction(options.afterInit)) {
+              var section = $(SECTION_ACTIVE_SEL);
+
+	      // Modeled after afterRender
+	      options.afterInit.call(section, section.data('anchor'), (section.index(SECTION_SEL) + 1));
+	    }
         }
 
         function bindEvents(){

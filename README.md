@@ -194,6 +194,7 @@ $(document).ready(function() {
 
 		//events
 		onLeave: function(index, nextIndex, direction){},
+		afterInit: function(anchorLink, index){},
 		afterLoad: function(anchorLink, index){},
 		afterRender: function(){},
 		afterResize: function(){},
